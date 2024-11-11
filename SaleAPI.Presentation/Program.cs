@@ -6,6 +6,7 @@ using SalesAPI.Infrastructure.Persistence.Data;
 using Serilog;
 using Microsoft.OpenApi.Models;
 using SalesAPI.Presentation.Filters;
+using SalesAPI.Infrastructure.SignalR;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -108,7 +109,10 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 
+ app.UseRouting();
 
+// Map the SignalR hubs
+app.MapHub<SalesHub>("salesHub");
 app.MapControllers();
 
 app.Run();

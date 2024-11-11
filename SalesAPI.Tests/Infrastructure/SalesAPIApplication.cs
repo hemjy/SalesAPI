@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using SalesAPI.Infrastructure.Persistence.Contexts;
+using SalesAPI.Infrastructure.SignalR;
 
 namespace SalesAPI.Tests.Infrastructure
 {
@@ -41,7 +43,11 @@ namespace SalesAPI.Tests.Infrastructure
 
                 // Apply migrations automatically for testing purposes
                 services.AddTransient<IHostedService, DbMigrationsService>(); // Ensure migrations are applied
+
+                // Register SignalR
+                services.AddSignalR();
             });
+           
         }
 
         // Cleanup after tests: drop the test database

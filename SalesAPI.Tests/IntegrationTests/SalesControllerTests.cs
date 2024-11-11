@@ -13,13 +13,20 @@ using SalesAPI.Application.DTOs.Products;
 using SalesAPI.Tests.Helpers;
 using SalesAPI.Application.DTOs.SalesOrders;
 using SaleAPI.Presentation.Controllers;
+using SalesAPI.Domain.Entities;
+using System.Text;
+using Microsoft.AspNetCore.SignalR.Client;
+using System;
+using SalesAPI.Infrastructure.Persistence.Contexts;
+using Microsoft.AspNetCore.TestHost;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.SignalR;
 
 namespace SalesAPI.Tests.IntegrationTests
 {
     public class SalesControllerTests(DatabaseFixture dbFixture) : BaseControllerTest<SalesController>(dbFixture)
     {
-
-       
+        private readonly TestServer _server;
         [Fact]
         public async Task CreateSalesOrder_ShouldReturnsOkAtActionResult()
         {
@@ -31,7 +38,6 @@ namespace SalesAPI.Tests.IntegrationTests
                 Price = 99.99m,
             };
 
-            
             var productResponse = await _client.PostAsJsonAsync(UrlHelper.ProductPath, createProductCommand);
             var productResult = await productResponse.Content.ReadFromJsonAsync<Result<Guid>>();
 
@@ -147,6 +153,10 @@ namespace SalesAPI.Tests.IntegrationTests
             // Assert
             Assert.Equal(HttpStatusCode.Unauthorized, response.StatusCode);
         }
+
+       
     }
 
 }
+
+
