@@ -47,18 +47,7 @@ namespace SalesAPI.Tests.Infrastructure
                 // Register SignalR
                 services.AddSignalR();
             });
-            // Configure the HTTP request pipeline
-            builder.Configure(app =>
-            {
-                // Middleware for routing
-                app.UseRouting();
-
-                //// Map the SignalR hub (this is where you map the SignalR hub in your test server)
-                //app.MapHub<SalesHub>("/salesHub");
-
-                //// Map your controllers if needed
-                //app.MapControllers();
-            });
+           
         }
 
         // Cleanup after tests: drop the test database
