@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using SalesAPI.Infrastructure.Persistence.Contexts;
+using SalesAPI.Infrastructure.SignalR;
 
 namespace SalesAPI.Tests.Infrastructure
 {
@@ -41,6 +43,21 @@ namespace SalesAPI.Tests.Infrastructure
 
                 // Apply migrations automatically for testing purposes
                 services.AddTransient<IHostedService, DbMigrationsService>(); // Ensure migrations are applied
+
+                // Register SignalR
+                services.AddSignalR();
+            });
+            // Configure the HTTP request pipeline
+            builder.Configure(app =>
+            {
+                // Middleware for routing
+                app.UseRouting();
+
+                //// Map the SignalR hub (this is where you map the SignalR hub in your test server)
+                //app.MapHub<SalesHub>("/salesHub");
+
+                //// Map your controllers if needed
+                //app.MapControllers();
             });
         }
 

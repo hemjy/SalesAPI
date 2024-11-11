@@ -1,15 +1,6 @@
 ﻿using FluentAssertions;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc.Testing;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 using SaleAPI.Presentation.Controllers;
 using SalesAPI.Application.Commons;
 using SalesAPI.Tests.Infrastructure;

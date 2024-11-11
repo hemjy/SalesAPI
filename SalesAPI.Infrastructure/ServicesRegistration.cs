@@ -9,11 +9,13 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using SalesAPI.Application.Interfaces.Auth;
 using SalesAPI.Application.Interfaces.Repositories;
+using SalesAPI.Application.Interfaces.Services;
 using SalesAPI.Domain.Entities;
 using SalesAPI.Infrastructure.Identity;
 using SalesAPI.Infrastructure.Persistence.Contexts;
 using SalesAPI.Infrastructure.Persistence.Data;
 using SalesAPI.Infrastructure.Persistence.Repositories;
+using SalesAPI.Infrastructure.SignalR;
 using Serilog;
 using System.Security.Claims;
 using System.Text;
@@ -24,6 +26,7 @@ namespace SalesAPI.Infrastructure
     {
         public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration, ILogger logger)
         {
+            services.ConfigureSignalR();
             services.AddDbContext<ApplicationDbContext>(options =>
             options.UseNpgsql(
                    configuration.GetConnectionString("DefaultConnection"),
@@ -96,5 +99,13 @@ namespace SalesAPI.Infrastructure
 
         }
 
+        public static void ConfigureSignalR(this IServiceCollection services)
+        {
+            // SignalR service registration
+            services.AddSignalR();
+
+            // Register your application services, e.g., ISalesHubService
+            services.AddScoped<ISalesHubService, SalesHubService>();
+        }
     }
 }
