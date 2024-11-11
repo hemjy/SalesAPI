@@ -2,7 +2,7 @@
 
 ## Purpose
 This API is used for managing sales orders, products, and providing a dashboard for sales analysis. It supports features like JWT authentication, real-time updates with SignalR, and logging.
-It also has swagger documentation
+It also has swagger documentation. Clean Architecture is used and CQRS Pattern for clear segregation of commands and queries
 
 ## Setup
 1. Install PostgresSql and configure the connection string
